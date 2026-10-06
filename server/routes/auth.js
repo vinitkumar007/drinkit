@@ -6,6 +6,11 @@ const auth = require('../services/auth');
 module.exports = (app) => {
   const limiter = rateLimit({ windowMs: config.rateLimit.authWindowMs, max: config.rateLimit.authMax });
 
+  const staffLimiter = rateLimit({ windowMs: config.rateLimit.authWindowMs, max: config.rateLimit.staffMax });
+
+  // Admin / rider login with phone + password (no SMS needed).
+  app.post('/api/auth/staff-login', staffLimiter, (req, res) => res.json(auth.staffLogin(req.body.phone, req.body.password)));
+
   app.post('/api/auth/request-otp', limiter, (req, res) => res.json(auth.requestOtp(req.body.phone)));
 
   app.post('/api/auth/verify-otp', limiter, (req, res) =>

@@ -3,7 +3,8 @@
 import { h } from './dom.js';
 import { openSheet, closeSheet, safe, field, toast } from './ui.js';
 
-export function loginFlow({ api, session, title = 'Log in', intro = 'Apna mobile number daalo, hum OTP bhejenge.', allowedRoles, askName = false }) {
+// method: 'otp' (customers) or 'password' (admin / rider staff accounts, no SMS needed).
+export function loginFlow({ api, session, title = 'Log in', intro = 'Apna mobile number daalo, hum OTP bhejenge.', allowedRoles, askName = false, method = 'otp' }) {
   return new Promise((resolve) => {
     let settled = false;
     const settle = (v) => { if (!settled) { settled = true; resolve(v); } };
@@ -47,6 +48,26 @@ export function loginFlow({ api, session, title = 'Log in', intro = 'Apna mobile
       s.sheet.querySelector('.x').addEventListener('click', () => settle(null));
     };
 
-    phoneStep();
+    const passwordStep = () => {
+      const phone = h('input', { type: 'tel', inputMode: 'numeric', maxLength: 10, placeholder: '10 digit mobile number', autocomplete: 'username', required: true });
+      const password = h('input', { type: 'password', placeholder: 'Password', autocomplete: 'current-password', required: true });
+      const form = h('form', { class: 'stack', onsubmit: safe(async (e) => {
+        e.preventDefault();
+        const r = await api.post('/auth/staff-login', { phone: phone.value.replace(/\D/g, ''), password: password.value });
+        if (allowedRoles && !allowedRoles.includes(r.user.role)) throw new Error('Is number se is app me login allowed nahi hai.');
+        session.set(r.token, r.user);
+        closeSheet();
+        toast('Welcome' + (r.user.name ? ', ' + r.user.name : ''));
+        settle(r.user);
+      }) },
+        h('p', { class: 'muted' }, intro),
+        field('Mobile number', phone),
+        field('Password', password),
+        h('button', { class: 'btn block', type: 'submit' }, 'Log in'));
+      const s = openSheet(title, form);
+      s.sheet.querySelector('.x').addEventListener('click', () => settle(null));
+    };
+
+    (method === 'password' ? passwordStep : phoneStep)();
   });
 }

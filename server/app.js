@@ -3,9 +3,11 @@ const config = require('./config');
 const { createApp, json, serveStatic, cors, helmet } = require('./lib');
 const { apiNotFound, errorHandler } = require('./middleware/errors');
 const { seed } = require('./db/seed');
+const auth = require('./services/auth');
 
 function buildApp() {
   seed(); // no-op when the database already has data
+  auth.applyStaffPasswordFromEnv(); // STAFF_PASSWORD -> admin/rider passwords
 
   const app = createApp();
   app.use(helmet());

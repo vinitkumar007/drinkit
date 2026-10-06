@@ -6,11 +6,13 @@ Licensed, age-verified alcohol delivery (quick-commerce style): customer app, ad
 node server/index.js     # then open http://localhost:3000
 ```
 
-| App | URL | Demo login (OTP shows on screen in dev) |
+| App | URL | Login |
 |---|---|---|
-| Customer | `/` | any new 10-digit number |
-| Admin | `/admin/` | 9000000001 |
-| Rider | `/rider/` | 9000000002 (Delhi CP), 9000000003 (Bengaluru) ... 9000000006 |
+| Customer | `/` | any 10-digit number + OTP (OTP shows on screen locally, or in production when `DEMO_OTP=1`) |
+| Admin | `/admin/` | 9000000001 + staff password |
+| Rider | `/rider/` | 9000000002 (Delhi CP), 9000000003 (Bengaluru) ... 9000000006 + staff password |
+
+Admin and riders log in with a **password**, not an OTP. Set it with the `STAFF_PASSWORD` environment variable (min 8 characters), for example `STAFF_PASSWORD=MyStrongPass123 node server/index.js`. It applies to every admin and rider account.
 
 **Try the whole flow:** pick *Connaught Place, Delhi* → add items → checkout (login, age 25+, address, coupon `WELCOME100`) → in Admin: *Orders* → Accept → Mark packed → in Rider: pick up → tick the ID check and enter the customer's OTP → customer sees *Delivered*.
 

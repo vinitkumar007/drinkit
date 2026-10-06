@@ -25,6 +25,12 @@ function watch(page, name) {
 }
 const shot = (page, name) => SHOTS && page.screenshot({ path: path.join(SHOTS, name + '.png') });
 
+async function staffLogin(page, phone) {
+  await page.fill('input[type=tel]', phone);
+  await page.fill('input[type=password]', 'e2e-staff-pass');
+  await page.click('.sheet >> text=Log in');
+}
+
 async function login(page, phone, name) {
   await page.fill('input[type=tel]', phone);
   await page.click('text=Send OTP');
@@ -36,7 +42,7 @@ async function login(page, phone, name) {
 
 (async () => {
   const server = spawn(process.execPath, ['--no-warnings', path.join(__dirname, '..', 'server', 'index.js')], {
-    env: { ...process.env, PORT, DB_FILE: path.join(os.tmpdir(), `drinkit-e2e-${process.pid}.db`), IGNORE_STORE_HOURS: '1', AUTH_RATE_MAX: '100000' },
+    env: { ...process.env, PORT, STAFF_PASSWORD: 'e2e-staff-pass', DB_FILE: path.join(os.tmpdir(), `drinkit-e2e-${process.pid}.db`), IGNORE_STORE_HOURS: '1', AUTH_RATE_MAX: '100000' },
     stdio: 'ignore',
   });
   for (let i = 0; i < 50; i++) { try { if ((await fetch(BASE + '/api/health')).ok) break; } catch {} await new Promise((r) => setTimeout(r, 100)); }
@@ -92,7 +98,7 @@ async function login(page, phone, name) {
     const adm = await browser.newContext({ viewport: { width: 1280, height: 800 } });
     const a = await adm.newPage(); watch(a, 'admin');
     await a.goto(BASE + '/admin/');            // login sheet opens by itself
-    await login(a, '9000000001');
+    await staffLogin(a, '9000000001');
     await a.waitForSelector('text=Open orders');
     await shot(a, '07-admin-dashboard');
     say('admin dashboard');
@@ -118,7 +124,7 @@ async function login(page, phone, name) {
     const rid = await browser.newContext({ viewport: { width: 390, height: 844 } });
     const r = await rid.newPage(); watch(r, 'rider');
     await r.goto(BASE + '/rider/');
-    await login(r, '9000000002');
+    await staffLogin(r, '9000000002');
     await r.waitForSelector('.job');
     await shot(r, '11-rider-job');
     await r.click('text=I have picked up this order');

@@ -54,7 +54,7 @@ function gate(message) {
 
 async function start() {
   if (!session.token) {
-    const u = await loginFlow({ api, session, title: 'Rider login', allowedRoles: ['rider'], intro: 'Apna rider mobile number daalo.' });
+    const u = await loginFlow({ api, session, title: 'Rider login', allowedRoles: ['rider'], method: 'password', intro: 'Apna rider mobile number aur password daalo.' });
     if (!u) return gate();
   }
   mount(shell, loading());

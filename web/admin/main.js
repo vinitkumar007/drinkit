@@ -60,7 +60,7 @@ function gate(message) {
 
 async function start() {
   if (!session.token) {
-    const u = await loginFlow({ api, session, title: 'Admin login', allowedRoles: ['admin'], intro: 'Admin mobile number daalo.' });
+    const u = await loginFlow({ api, session, title: 'Admin login', allowedRoles: ['admin'], method: 'password', intro: 'Admin mobile number aur password daalo.' });
     if (!u) return gate();
   }
   try {
