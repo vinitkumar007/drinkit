@@ -1,0 +1,11 @@
+services:
+  drinkit:
+    build: .
+    ports: ["3000:3000"]
+    environment:
+      JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET in .env}
+    volumes:
+      - drinkit-data:/data
+    restart: unless-stopped
+volumes:
+  drinkit-data:

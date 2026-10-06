@@ -1,0 +1,83 @@
+/* Customer app styles. Signature element: the foil "seal" showing delivery minutes in the header. */
+.page { max-width: 980px; margin: 0 auto; padding: 18px 16px 120px; outline: none; }
+.center { text-align: center; }
+
+/* header */
+.top { position: sticky; top: 0; z-index: 20; background: var(--ink); color: #fff; }
+.top-in { max-width: 980px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; gap: 14px; }
+.logo { font: 700 1.55rem var(--serif); letter-spacing: -.02em; color: #fff; text-decoration: none; }
+.seal {
+  width: 46px; height: 46px; border-radius: 50%; background: var(--foil); color: var(--foil-ink);
+  display: grid; place-content: center; text-align: center; line-height: 1;
+  box-shadow: 0 0 0 3px var(--ink), 0 0 0 4px var(--foil), inset 0 -3px 0 rgba(0, 0, 0, .12);
+}
+.seal b { font: 700 1.2rem var(--serif); }
+.seal span { font-size: .6rem; font-weight: 700; margin-top: 1px; }
+.nav { margin-left: auto; display: flex; align-items: center; gap: 4px; }
+.nav a { color: #d6e4dc; text-decoration: none; padding: 8px 12px; border-radius: 99px; font-size: .92rem; font-weight: 600; }
+.nav a:hover { background: var(--ink-2); }
+.nav a[aria-current="page"] { background: var(--ink-2); color: #fff; }
+.nav .btn { background: var(--foil); color: var(--foil-ink); }
+
+/* hero / location */
+.hero { padding: 28px 0 8px; max-width: 640px; }
+.hero h1 { font-size: clamp(2rem, 6vw, 2.9rem); line-height: 1.08; }
+.lede { margin-top: 12px; font-size: 1.05rem; }
+.section-title { margin: 34px 0 12px; font-size: 1.05rem; }
+.city-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 10px; }
+.city { text-align: left; min-height: 48px; padding: 0 14px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); font: 600 .95rem var(--sans); cursor: pointer; color: var(--text); }
+.city:hover { border-color: var(--ink); background: var(--glass-2); }
+
+/* shop */
+.where { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 14px; }
+.toolbar { position: sticky; top: 66px; z-index: 10; background: var(--glass); padding: 4px 0 8px; }
+.chips { display: flex; gap: 8px; overflow-x: auto; padding: 10px 0 2px; scrollbar-width: none; }
+.chips::-webkit-scrollbar { display: none; }
+.chip { flex: none; min-height: 36px; padding: 0 14px; border: 1px solid var(--line); border-radius: 99px; background: var(--paper); font: 600 .88rem var(--sans); cursor: pointer; color: var(--text); }
+.chip.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; margin-top: 8px; }
+.grid > .empty { grid-column: 1 / -1; }
+
+.prod { display: grid; grid-template-columns: 54px 1fr; grid-template-rows: auto auto; gap: 4px 12px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 12px; }
+.swatch { grid-row: 1 / 2; width: 54px; height: 70px; border-radius: 10px 10px 8px 8px; display: grid; place-content: center; font: 700 1.3rem var(--serif); color: rgba(255, 255, 255, .92); }
+.swatch.amber { background: #8a4b12; } .swatch.gold { background: #b8860b; } .swatch.frost { background: #5d7f8e; }
+.swatch.rum { background: #5a2d1a; } .swatch.wine { background: var(--wine); } .swatch.juniper { background: #2f6b56; } .swatch.mix { background: #6d7a74; }
+.prod-body h3 { font-size: 1rem; }
+.low { color: var(--wine); font-weight: 600; }
+.prod-foot { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; margin-top: 6px; }
+.price { font: 700 1.1rem var(--serif); }
+.stepper { display: inline-flex; align-items: center; background: var(--ink); color: #fff; border-radius: var(--radius); }
+.stepper button { width: 38px; height: 36px; border: 0; background: transparent; color: #fff; font-size: 1.2rem; cursor: pointer; border-radius: var(--radius); }
+.stepper span { min-width: 24px; text-align: center; font-weight: 700; }
+.add { min-width: 74px; }
+
+.cartbar {
+  position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(14px + env(safe-area-inset-bottom)); z-index: 30;
+  width: min(calc(100% - 24px), 560px); min-height: 56px; padding: 0 20px; border: 0; border-radius: 16px;
+  background: var(--foil); color: var(--foil-ink); display: flex; justify-content: space-between; align-items: center;
+  font: 700 1rem var(--sans); cursor: pointer; box-shadow: 0 10px 30px rgba(15, 45, 37, .35);
+}
+
+/* checkout */
+.addr-choice { padding: 10px 12px; border: 1px solid var(--line); border-radius: var(--radius); }
+.addr-choice:has(input:checked) { border-color: var(--ink); background: var(--glass); }
+
+/* orders */
+.order-row { display: block; text-decoration: none; }
+.order-row > * + * { margin-top: 6px; }
+.order-row:hover { border-color: var(--ink); }
+.clamp { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.back { color: var(--muted); text-decoration: none; font-weight: 600; font-size: .9rem; }
+.steps { list-style: none; display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; margin: 0 0 12px; padding: 0; counter-reset: s; }
+.steps li { text-align: center; font-size: .72rem; font-weight: 600; color: var(--muted); position: relative; padding-top: 22px; }
+.steps li::before { content: ""; position: absolute; top: 4px; left: 50%; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%; background: var(--line); z-index: 1; }
+.steps li::after { content: ""; position: absolute; top: 9px; left: -50%; width: 100%; height: 2px; background: var(--line); }
+.steps li:first-child::after { display: none; }
+.steps li.done, .steps li.now { color: var(--ink); }
+.steps li.done::before, .steps li.now::before { background: var(--ink); }
+.steps li.done::after, .steps li.now::after { background: var(--ink); }
+.steps li.now::before { background: var(--foil); box-shadow: 0 0 0 4px rgba(217, 162, 27, .3); }
+.timeline { list-style: none; margin: 0; padding: 0; }
+.timeline li { padding: 0 0 12px 16px; border-left: 2px solid var(--line); position: relative; }
+.timeline li::before { content: ""; position: absolute; left: -6px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: var(--ink); }
+.addr-row { padding: 10px 0; border-top: 1px solid var(--line); }

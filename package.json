@@ -1,0 +1,17 @@
+{
+  "name": "drinkit",
+  "version": "0.3.0",
+  "description": "Drinkit - quick alcohol delivery platform (licensed, age-verified)",
+  "main": "server/index.js",
+  "engines": { "node": ">=22.5" },
+  "scripts": {
+    "start": "node --no-warnings server/index.js",
+    "dev": "node --no-warnings --watch server/index.js",
+    "seed": "node --no-warnings server/db/seed.js",
+    "test": "node --no-warnings --test \"server/tests/*.test.js\"",
+    "check:web": "node scripts/check-web.js",
+    "test:e2e": "node scripts/e2e-browser.js",
+    "check": "npm run check:web && npm test"
+  },
+  "dependencies": {}
+}
