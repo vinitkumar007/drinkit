@@ -1,0 +1,9 @@
+{
+  "name": "Drinkit",
+  "short_name": "Drinkit",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#eef3ef",
+  "theme_color": "#0f2d25",
+  "icons": [{ "src": "/shared/favicon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}
