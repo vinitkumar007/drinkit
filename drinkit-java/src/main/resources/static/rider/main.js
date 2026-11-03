@@ -32,7 +32,7 @@ async function render() {
       h('h2', { style: { margin: '20px 0 10px' } }, 'Your deliveries'),
       jobs.length
         ? h('div', { class: 'stack' }, jobs.map((j) => jobCard(j, render)))
-        : emptyState('No orders right now', 'Jaise hi store koi order pack karega, wo yaha dikhega.')));
+        : emptyState('No orders right now', 'Jaise hi store koi order pack karega, tab vo aapko yaha dikh jyga .')));
 
   // Auto-refresh, but never wipe a form the rider is filling in.
   timer = setTimeout(() => { if (document.activeElement && document.activeElement.matches('input, select, textarea')) busy = true; else busy = false; if (busy) { timer = setTimeout(render, 8000); } else render(); }, 8000);
@@ -48,13 +48,13 @@ function header(me) {
 function gate(message) {
   mount(shell, h('div', { class: 'gate' },
     h('h1', null, 'Drinkit rider'),
-    h('p', { class: 'muted' }, message || 'Rider number se login karo.'),
+    h('p', { class: 'muted' }, message || 'Rider login with number.'),
     h('button', { class: 'btn', type: 'button', onclick: start }, 'Log in')));
 }
 
 async function start() {
   if (!session.token) {
-    const u = await loginFlow({ api, session, title: 'Rider login', allowedRoles: ['rider'], method: 'password', intro: 'Apna rider mobile number aur password daalo.' });
+    const u = await loginFlow({ api, session, title: 'Rider login', allowedRoles: ['rider'], method: 'password', intro: 'enter  your rider mobile number and password.' });
     if (!u) return gate();
   }
   mount(shell, loading());
