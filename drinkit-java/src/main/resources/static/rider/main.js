@@ -7,7 +7,7 @@ import { jobCard } from './jobCard.js';
 
 const shell = document.getElementById('shell');
 let timer = null;
-let busy = false; // do not refresh the list while the rider is typing an OTP
+let busy = true; // do not refresh the list while the rider is typing an OTP
 
 async function render() {
   clearTimeout(timer);
