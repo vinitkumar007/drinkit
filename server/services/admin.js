@@ -1,4 +1,4 @@
-// Back-office operations: stats, stores, riders, inventory, products, coupons.
+// Back-office operations: stats, stores, riders, inventory, products, 
 const db = require('../db');
 const { validate: v, errors } = require('../lib');
 const audit = require('./audit');
