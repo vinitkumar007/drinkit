@@ -94,7 +94,7 @@ async function login(page, phone, name) {
     await shot(c, '06-order');
     say(`order placed, delivery OTP ${otp}`);
 
-    // ---------- admin (desktop) ----------
+    // ---------- admin (desktop) ---------
     const adm = await browser.newContext({ viewport: { width: 1280, height: 800 } });
     const a = await adm.newPage(); watch(a, 'admin');
     await a.goto(BASE + '/admin/');            // login sheet opens by itself
